@@ -10,7 +10,7 @@ BigInteger::BigInteger()
 	m_Size = 1;
 }
 
-BigInteger::BigInteger(int32_t value)
+BigInteger::BigInteger(int value)
 {
 	uint32_t digit;
 	if (value < 0)
@@ -28,7 +28,7 @@ BigInteger::BigInteger(int32_t value)
 	m_Storage[0] = digit;
 }
 
-BigInteger::BigInteger(uint32_t value)
+BigInteger::BigInteger(unsigned int value)
 {
 	m_Sign = false;
 	m_Size = 1;
@@ -51,22 +51,7 @@ BigInteger::BigInteger(unsigned long int value)
 	removeLeadingZeros();
 }
 
-BigInteger::BigInteger(uint64_t value)
-{
-	m_Sign = false;
-	uint64_t n = sizeof(uint64_t) / INT_SIZE;
-	m_Size = n;
-	m_Storage = new uint32_t[n];
-	uint32_t maxUInt32 = UINT32_MAX;
-	for (uint32_t i = 0; i < n; ++i)
-	{
-		m_Storage[i] = value % maxUInt32;
-		value /= maxUInt32;
-	}
-	removeLeadingZeros();
-}
-
-BigInteger::BigInteger(int64_t value)
+BigInteger::BigInteger(long long int value)
 {
 	if (value < 0)
 	{
@@ -82,6 +67,21 @@ BigInteger::BigInteger(int64_t value)
 	m_Storage = new uint32_t[n];
 	uint32_t maxUInt32 = UINT32_MAX;
 	for (uint64_t i = 0; i < n; ++i)
+	{
+		m_Storage[i] = value % maxUInt32;
+		value /= maxUInt32;
+	}
+	removeLeadingZeros();
+}
+
+BigInteger::BigInteger(unsigned long long int value)
+{
+	m_Sign = false;
+	uint64_t n = sizeof(uint64_t) / INT_SIZE;
+	m_Size = n;
+	m_Storage = new uint32_t[n];
+	uint32_t maxUInt32 = UINT32_MAX;
+	for (uint32_t i = 0; i < n; ++i)
 	{
 		m_Storage[i] = value % maxUInt32;
 		value /= maxUInt32;

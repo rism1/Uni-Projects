@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <algorithm>
 #include <iostream>
 
 /*
@@ -14,11 +15,11 @@ class BigInteger
 public:
 
 	BigInteger();
-	BigInteger(int32_t value);
-	BigInteger(uint32_t value);
+	BigInteger(int value);
+	BigInteger(unsigned int value);
 	BigInteger(unsigned long int value);
-	BigInteger(int64_t value);
-	BigInteger(uint64_t value);
+	BigInteger(long long int value);
+	BigInteger(unsigned long long  int value);
 	BigInteger(const std::string& strValue);
 	BigInteger(const BigInteger& bigInt);
 	BigInteger(BigInteger&& bigInt) noexcept;
@@ -27,7 +28,7 @@ public:
 	BigInteger& operator=	(const BigInteger& bigInt);
 	BigInteger& operator=	(BigInteger&& bigInt) noexcept;
 	
-	BigInteger BigInteger::flip();
+	BigInteger flip();
 	int8_t compare(const BigInteger& bigInt) const;
 	bool modulusBinaryCompare(const BigInteger& bigInt);
 	void leftRadixShift(uint32_t param);
