@@ -17,6 +17,7 @@ public:
 	BigInteger();
 	BigInteger(int value);
 	BigInteger(unsigned int value);
+	BigInteger(long int value);
 	BigInteger(unsigned long int value);
 	BigInteger(long long int value);
 	BigInteger(unsigned long long  int value);

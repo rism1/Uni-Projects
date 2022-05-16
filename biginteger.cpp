@@ -28,6 +28,29 @@ BigInteger::BigInteger(int value)
 	m_Storage[0] = digit;
 }
 
+BigInteger::BigInteger(long int value)
+{
+	if (value < 0)
+	{
+		m_Sign = true;
+		value = ~value + 1;
+	}
+	else
+	{
+		m_Sign = false;
+	}
+	uint64_t n = sizeof(long int) / INT_SIZE;
+	m_Size = n;
+	m_Storage = new uint32_t[n];
+	uint32_t maxUInt32 = UINT32_MAX;
+	for (uint64_t i = 0; i < n; ++i)
+	{
+		m_Storage[i] = value % maxUInt32;
+		value /= maxUInt32;
+	}
+	removeLeadingZeros();
+}
+
 BigInteger::BigInteger(unsigned int value)
 {
 	m_Sign = false;
@@ -39,7 +62,7 @@ BigInteger::BigInteger(unsigned int value)
 BigInteger::BigInteger(unsigned long int value)
 {
 	m_Sign = false;
-	uint64_t n = sizeof(uint64_t) / INT_SIZE;
+	uint64_t n = sizeof(unsigned long int) / INT_SIZE;
 	m_Size = n;
 	m_Storage = new uint32_t[n];
 	uint32_t maxUInt32 = UINT32_MAX;
@@ -62,7 +85,7 @@ BigInteger::BigInteger(long long int value)
 	{
 		m_Sign = false;
 	}
-	uint64_t n = sizeof(int64_t) / INT_SIZE;
+	uint64_t n = sizeof(long long int) / INT_SIZE;
 	m_Size = n;
 	m_Storage = new uint32_t[n];
 	uint32_t maxUInt32 = UINT32_MAX;
@@ -77,7 +100,7 @@ BigInteger::BigInteger(long long int value)
 BigInteger::BigInteger(unsigned long long int value)
 {
 	m_Sign = false;
-	uint64_t n = sizeof(uint64_t) / INT_SIZE;
+	uint64_t n = sizeof(unsigned long long int) / INT_SIZE;
 	m_Size = n;
 	m_Storage = new uint32_t[n];
 	uint32_t maxUInt32 = UINT32_MAX;
